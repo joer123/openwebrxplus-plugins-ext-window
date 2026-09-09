@@ -1,0 +1,1 @@
+# openwebrxplus-plugins-ext-window
