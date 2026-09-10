@@ -980,9 +980,9 @@
     let window_created = false;
 
     function create_ui() {
-        if (typeof Plugin !== 'undefined' && typeof Plugin.addButton === 'function') {
+        if (typeof Plugin !== 'undefined' && typeof Plugins.addButton === 'function') {
             if (!plugin_button) {
-                plugin_button = Plugin.addButton(PLUGIN_ID, 'FI', on_plugin_button_click);
+                plugin_button = Plugins.addButton(PLUGIN_ID, 'AF', on_plugin_button_click);
                 if (plugin_button) {
                     plugin_button.title = 'Audio Filter Controls (EQ, NR, NB, Comp, Notch)';
                 }
@@ -1001,8 +1001,8 @@
         if (!window_created) {
             create_mini_window();
         }
-        if (typeof Plugin !== 'undefined' && typeof Plugin.toggleWindow === 'function') {
-            Plugin.toggleWindow(PLUGIN_ID);
+        if (typeof Plugin !== 'undefined' && typeof Plugins.toggleWindow === 'function') {
+            Plugins.toggleWindow(PLUGIN_ID);
         } else {
             var win = document.getElementById('plugin-window-' + PLUGIN_ID);
             if (win) {
@@ -1023,8 +1023,8 @@
         if (window_created) return;
 
         var winElem = null;
-        if (typeof Plugin !== 'undefined' && typeof Plugin.addWindow === 'function') {
-            winElem = Plugin.addWindow(PLUGIN_ID, 'Audio Filter');
+        if (typeof Plugin !== 'undefined' && typeof Plugins.addWindow === 'function') {
+            winElem = Plugins.addWindow(PLUGIN_ID, 'Audio Filter');
         }
         if (!winElem) return;
 
@@ -2355,16 +2355,10 @@
         }
 
         var active = is_filter_enabled || is_autonotch_enabled || is_nb_enabled || is_compressor_enabled || is_nr_enabled;
-        
+
         var extBtn = document.getElementById('plugin-button-' + PLUGIN_ID);
         if (extBtn) {
-            if (isVisible) {
-                extBtn.style.color = '#39FF14';
-            } else if (active) {
-                extBtn.style.color = '#39FF14';
-            } else {
-                extBtn.style.color = '';
-            }
+            extBtn.style.color = active? '#39FF14' : '';
         }
 
         var btn = document.getElementById('audio-filter-toggle-btn');
