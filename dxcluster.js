@@ -3,7 +3,7 @@
  * 
  * An OpenWebRX+ plugin to display DX Cluster spots on the waterfall
  * and in an interactive floating mini-window.
- * Uses the new OpenWebRX ext-windows Plugin API (Plugin.addButton & Plugin.addWindow).
+ * Uses the new OpenWebRX ext-windows Plugin API (Plugins.addButton & Plugins.addWindow).
  * 
  * License: MIT 
  * Copyright (c) 2026 dl1hqh
@@ -86,9 +86,9 @@
     }
 
     function create_ui() {
-        if (typeof Plugin !== 'undefined' && typeof Plugin.addButton === 'function') {
+        if (typeof Plugin !== 'undefined' && typeof Plugins.addButton === 'function') {
             if (!plugin_button) {
-                plugin_button = Plugin.addButton(PLUGIN_ID, 'DX', on_plugin_button_click);
+                plugin_button = Plugins.addButton(PLUGIN_ID, 'DX', on_plugin_button_click);
             }
             if (!window_created) {
                 create_mini_window();
@@ -103,8 +103,8 @@
         if (!window_created) {
             create_mini_window();
         }
-        if (typeof Plugin !== 'undefined' && typeof Plugin.toggleWindow === 'function') {
-            Plugin.toggleWindow(PLUGIN_ID);
+        if (typeof Plugin !== 'undefined' && typeof Plugins.toggleWindow === 'function') {
+            Plugins.toggleWindow(PLUGIN_ID);
         } else {
             const win = document.getElementById('plugin-window-' + PLUGIN_ID);
             if (win) {
@@ -159,8 +159,8 @@
         `;
 
         let winElem = null;
-        if (typeof Plugin !== 'undefined' && typeof Plugin.addWindow === 'function') {
-            winElem = Plugin.addWindow(PLUGIN_ID, 'DX Cluster', windowHtml);
+        if (typeof Plugin !== 'undefined' && typeof Plugins.addWindow === 'function') {
+            winElem = Plugins.addWindow(PLUGIN_ID, 'DX Cluster', windowHtml);
         }
 
         if (winElem) {
@@ -771,15 +771,6 @@
     }
 
     function update_button_state() {
-        const extBtn = document.getElementById('plugin-button-' + PLUGIN_ID);
-        if (extBtn) {
-            if (overlay_enabled) {
-                extBtn.style.color = '#39FF14';
-            } else {
-                extBtn.style.color = '';
-            }
-        }
-
         const fallbackBtn = document.getElementById('dxcluster-toggle-btn');
         if (fallbackBtn) {
             if (overlay_enabled) {
